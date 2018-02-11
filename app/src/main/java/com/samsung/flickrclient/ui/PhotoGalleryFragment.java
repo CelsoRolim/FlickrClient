@@ -1,23 +1,31 @@
 package com.samsung.flickrclient.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samsung.flickrclient.PhotosWrapper;
 import com.samsung.flickrclient.R;
 import com.samsung.flickrclient.databinding.FragmentPhotoGalleryBinding;
+import com.samsung.flickrclient.model.PhotoGalleryItem;
+import com.samsung.flickrclient.viewmodel.PhotoGalleryViewModel;
 
 /**
  * Created by sidia on 09/02/18.
  */
 public class PhotoGalleryFragment extends Fragment {
 
-    FragmentPhotoGalleryBinding mBinding;
+    private static String TAG = PhotoGalleryFragment.class.getSimpleName();
+
+    private FragmentPhotoGalleryBinding mBinding;
 
     public static PhotoGalleryFragment newInstance() {
 
@@ -61,5 +69,19 @@ public class PhotoGalleryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        final PhotoGalleryViewModel viewModel = ViewModelProviders.of(this)
+                .get(PhotoGalleryViewModel.class);
+
+        subscribeToModel(viewModel);
+    }
+
+    private void subscribeToModel(final PhotoGalleryViewModel viewModel) {
+        viewModel.getGalleryItems().observe(this, new Observer<PhotosWrapper<PhotoGalleryItem>>() {
+            @Override
+            public void onChanged(@Nullable PhotosWrapper<PhotoGalleryItem> listWrapper) {
+                Log.d(TAG, "onChanged");
+            }
+        });
     }
 }

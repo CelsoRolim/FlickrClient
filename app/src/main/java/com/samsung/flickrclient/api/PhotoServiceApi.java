@@ -1,7 +1,7 @@
 package com.samsung.flickrclient.api;
 
-import com.samsung.flickrclient.ListWrapper;
 import com.samsung.flickrclient.model.PhotoGalleryItem;
+import com.samsung.flickrclient.PhotosWrapper;
 
 import java.util.Map;
 
@@ -29,15 +29,15 @@ public interface PhotoServiceApi {
 
     String EXCLUDE_ENCLOSING = "1";
 
-            @GET
+    @GET
     @Headers({"content-type:application/json", "accept:application/json"})
-    Call<ListWrapper<PhotoGalleryItem>> getRecent(@Query("method") String method,
+    Call<PhotosWrapper<PhotoGalleryItem>> getRecent(@Query("method") String method,
                                                   @Query("api_key") String apiKey,
                                                   @Query("format") String format,
                                                   @Query("nojsoncallback") String callback,
                                                   @Query("extras") String extras);
 
-    @GET
+    @GET("?method=" + RECENT_REST_END_POINT)
     @Headers({"content-type:application/json", "accept:application/json"})
-    Call<ListWrapper<PhotoGalleryItem>> getRecent(@QueryMap Map<String, String> mapOptions);
+    Call<PhotosWrapper<PhotoGalleryItem>> getRecent(@QueryMap Map<String, String> mapOptions);
 }

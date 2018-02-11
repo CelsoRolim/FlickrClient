@@ -1,5 +1,11 @@
 package com.samsung.flickrclient.repository;
 
+import android.arch.lifecycle.LiveData;
+
+import com.samsung.flickrclient.PhotosWrapper;
+import com.samsung.flickrclient.api.PhotoService;
+import com.samsung.flickrclient.model.PhotoGalleryItem;
+
 /**
  * Created by sidia on 09/02/18.
  */
@@ -8,17 +14,24 @@ public class PhotoRepository {
 
     private static PhotoRepository sInstance;
 
-    private PhotoRepository() {
+    private PhotoService mPhotoService;
+
+    private PhotoRepository(PhotoService photoService) {
+        mPhotoService = photoService;
     }
 
-    public static PhotoRepository getInstance() {
+    public static PhotoRepository getInstance(PhotoService photoService) {
         if (sInstance == null) {
             synchronized (PhotoRepository.class) {
                 if (sInstance == null) {
-                    sInstance = new PhotoRepository();
+                    sInstance = new PhotoRepository(photoService);
                 }
             }
         }
         return sInstance;
+    }
+
+    public LiveData<PhotosWrapper<PhotoGalleryItem>> getRecent() {
+        return mPhotoService.getRecent();
     }
 }
