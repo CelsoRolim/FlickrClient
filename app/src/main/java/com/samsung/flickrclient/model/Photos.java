@@ -10,7 +10,7 @@ public class Photos {
     @SerializedName("photos")
     private PhotosGallery mPhotos;
 
-    public PhotosGallery getPhotos() {
+    public PhotosGallery getPhotosGallery() {
         return mPhotos;
     }
 

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.samsung.flickrclient.R;
 import com.samsung.flickrclient.databinding.FragmentPhotoGalleryBinding;
 import com.samsung.flickrclient.events.http.GetPhotosResponse;
-import com.samsung.flickrclient.model.PhotoGalleryItem;
+import com.samsung.flickrclient.model.Photos;
 import com.samsung.flickrclient.viewmodel.PhotoGalleryViewModel;
 
 /**
@@ -26,6 +26,8 @@ public class PhotoGalleryFragment extends Fragment {
     private static String TAG = PhotoGalleryFragment.class.getSimpleName();
 
     private FragmentPhotoGalleryBinding mBinding;
+
+    private PhotoAdapter mPhotoAdapter;
 
     public static PhotoGalleryFragment newInstance() {
 
@@ -49,6 +51,9 @@ public class PhotoGalleryFragment extends Fragment {
 
         mBinding.photoGalleryRecyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity().getApplicationContext(), 3));
+
+        mPhotoAdapter = new PhotoAdapter();
+        mBinding.photoGalleryRecyclerView.setAdapter(mPhotoAdapter);
 
         return mBinding.getRoot();
     }
@@ -79,8 +84,14 @@ public class PhotoGalleryFragment extends Fragment {
     private void subscribeToModel(final PhotoGalleryViewModel viewModel) {
         viewModel.getGalleryItems().observe(this, new Observer<GetPhotosResponse>() {
             @Override
-            public void onChanged(@Nullable GetPhotosResponse listWrapper) {
+            public void onChanged(@Nullable GetPhotosResponse photosResponse) {
                 Log.d(TAG, "onChanged");
+                if (photosResponse != null) {
+
+                    Photos photosWrapper = photosResponse.getData();
+
+                    mPhotoAdapter.setItems(photosWrapper.getPhotosGallery().getItems());
+                }
             }
         });
     }

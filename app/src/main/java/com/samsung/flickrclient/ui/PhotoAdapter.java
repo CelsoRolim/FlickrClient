@@ -41,6 +41,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     @Override
     public void onBindViewHolder(PhotoViewHolder holder, int position) {
 
+        PhotoGalleryItem currentItem = mItems.get(position);
+        holder.binding.setPhotoItem(currentItem);
+
+        holder.binding.executePendingBindings();
     }
 
     /**
@@ -51,6 +55,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     @Override
     public int getItemCount() {
         return mItems.size();
+    }
+
+    public void setItems(List<PhotoGalleryItem> items) {
+        mItems = items;
     }
 
     static class PhotoViewHolder extends RecyclerView.ViewHolder {
