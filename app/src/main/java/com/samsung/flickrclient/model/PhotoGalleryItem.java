@@ -1,12 +1,14 @@
 package com.samsung.flickrclient.model;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by celso_guido on 10/02/18.
  */
 
-public class PhotoGalleryItem implements GalleryItem {
+public class PhotoGalleryItem {
 
     @SerializedName("id")
     private String mId;
@@ -16,6 +18,16 @@ public class PhotoGalleryItem implements GalleryItem {
 
     @SerializedName("url_s")
     private String mUrl;
+
+    private Bitmap mBitmap;
+
+    public Bitmap getBitmap() {
+        return mBitmap;
+    }
+
+    public void setBitmap(Bitmap mBitmap) {
+        this.mBitmap = mBitmap;
+    }
 
     public String getId() {
         return mId;

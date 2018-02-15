@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.samsung.flickrclient.PhotosWrapper;
 import com.samsung.flickrclient.R;
 import com.samsung.flickrclient.databinding.FragmentPhotoGalleryBinding;
+import com.samsung.flickrclient.events.http.GetPhotosResponse;
 import com.samsung.flickrclient.model.PhotoGalleryItem;
 import com.samsung.flickrclient.viewmodel.PhotoGalleryViewModel;
 
@@ -77,9 +77,9 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     private void subscribeToModel(final PhotoGalleryViewModel viewModel) {
-        viewModel.getGalleryItems().observe(this, new Observer<PhotosWrapper<PhotoGalleryItem>>() {
+        viewModel.getGalleryItems().observe(this, new Observer<GetPhotosResponse>() {
             @Override
-            public void onChanged(@Nullable PhotosWrapper<PhotoGalleryItem> listWrapper) {
+            public void onChanged(@Nullable GetPhotosResponse listWrapper) {
                 Log.d(TAG, "onChanged");
             }
         });

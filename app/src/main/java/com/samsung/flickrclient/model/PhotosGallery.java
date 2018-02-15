@@ -8,7 +8,7 @@ import java.util.List;
  * Created by celso_guido on 10/02/18.
  */
 
-public class PhotosGallery<T> {
+public class PhotosGallery {
 
     @SerializedName("page")
     private int mPage;
@@ -17,7 +17,7 @@ public class PhotosGallery<T> {
     private int mPages;
 
     @SerializedName("photo")
-    private List<T> mItems;
+    private List<PhotoGalleryItem> mItems;
 
     public int getPage() {
         return mPage;
@@ -27,11 +27,11 @@ public class PhotosGallery<T> {
         this.mPage = mPage;
     }
 
-    public List<T> getItems() {
+    public List<PhotoGalleryItem> getItems() {
         return mItems;
     }
 
-    public void setItems(List<T> mItems) {
+    public void setItems(List<PhotoGalleryItem> mItems) {
         this.mItems = mItems;
     }
 

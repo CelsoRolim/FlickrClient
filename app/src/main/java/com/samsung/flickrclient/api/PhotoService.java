@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.samsung.flickrclient.model.PhotoGalleryItem;
-import com.samsung.flickrclient.PhotosWrapper;
+import com.samsung.flickrclient.events.http.GetPhotosResponse;
+import com.samsung.flickrclient.model.Photos;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +33,7 @@ public class PhotoService {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(PhotoServiceApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                //.callbackExecutor()
                 .build();
 
         mPhotoServiceApi = retrofit.create(PhotoServiceApi.class);
@@ -49,7 +50,7 @@ public class PhotoService {
         return sInstance;
     }
 
-    public LiveData<PhotosWrapper<PhotoGalleryItem>> getRecent() {
+    public LiveData<GetPhotosResponse> getRecent() {
 
         Map<String, String> mapOptions = new HashMap<>();
         mapOptions.put("api_key", PhotoServiceApi.API_KEY);
@@ -57,19 +58,28 @@ public class PhotoService {
         mapOptions.put("nojsoncallback", PhotoServiceApi.EXCLUDE_ENCLOSING);
         mapOptions.put("extras", PhotoServiceApi.URL_SMALL_VERSION);
 
-        final MutableLiveData<PhotosWrapper<PhotoGalleryItem>> liveData = new MutableLiveData<>();
+        final MutableLiveData<GetPhotosResponse> liveData = new MutableLiveData<>();
 
-        mPhotoServiceApi.getRecent(mapOptions).enqueue(new Callback<PhotosWrapper<PhotoGalleryItem>>() {
+        mPhotoServiceApi.getRecent(mapOptions).enqueue(new Callback<Photos>() {
+
+            // TODO Check if callback is called on main thread
+
             @Override
-            public void onResponse(Call<PhotosWrapper<PhotoGalleryItem>> call,
-                                   Response<PhotosWrapper<PhotoGalleryItem>> response) {
+            public void onResponse(Call<Photos> call, Response<Photos> response) {
                 Log.d(TAG, "Response: " + response.body());
-                liveData.postValue(response.body());
+
+                Photos photosResponse = response.body();
+
+                // TODO If it is on the main thread, setValue is the correct method.
+                liveData.postValue(new GetPhotosResponse(photosResponse, null));
             }
 
             @Override
-            public void onFailure(Call<PhotosWrapper<PhotoGalleryItem>> call, Throwable t) {
+            public void onFailure(Call<Photos> call, Throwable t) {
                 Log.d(TAG, "Response: " + t.getMessage());
+
+                // TODO If it is on the main thread, setValue is the correct method.
+                liveData.postValue(new GetPhotosResponse(null, t));
             }
         });
 

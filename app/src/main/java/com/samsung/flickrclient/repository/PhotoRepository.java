@@ -2,8 +2,8 @@ package com.samsung.flickrclient.repository;
 
 import android.arch.lifecycle.LiveData;
 
-import com.samsung.flickrclient.PhotosWrapper;
 import com.samsung.flickrclient.api.PhotoService;
+import com.samsung.flickrclient.events.http.GetPhotosResponse;
 import com.samsung.flickrclient.model.PhotoGalleryItem;
 
 /**
@@ -31,7 +31,7 @@ public class PhotoRepository {
         return sInstance;
     }
 
-    public LiveData<PhotosWrapper<PhotoGalleryItem>> getRecent() {
+    public LiveData<GetPhotosResponse> getRecent() {
         return mPhotoService.getRecent();
     }
 }
