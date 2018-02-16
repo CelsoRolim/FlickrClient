@@ -2,12 +2,13 @@ package com.samsung.flickrclient.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.support.annotation.NonNull;
 
 import com.samsung.flickrclient.BasicApp;
 import com.samsung.flickrclient.events.http.GetPhotosResponse;
-import com.samsung.flickrclient.model.PhotoGalleryItem;
 import com.samsung.flickrclient.repository.PhotoRepository;
 
 /**
@@ -17,7 +18,6 @@ import com.samsung.flickrclient.repository.PhotoRepository;
 public class PhotoGalleryViewModel extends AndroidViewModel {
 
     private PhotoRepository mRepository;
-
     private LiveData<GetPhotosResponse> mGalleryItems;
 
     public PhotoGalleryViewModel(@NonNull Application application) {
@@ -30,5 +30,10 @@ public class PhotoGalleryViewModel extends AndroidViewModel {
 
     public LiveData<GetPhotosResponse> getGalleryItems() {
         return mGalleryItems;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    public void reset() {
+
     }
 }

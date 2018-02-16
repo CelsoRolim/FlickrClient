@@ -71,7 +71,17 @@ public class PhotoService {
                 Photos photosResponse = response.body();
 
                 // TODO If it is on the main thread, setValue is the correct method.
-                liveData.postValue(new GetPhotosResponse(photosResponse, null));
+                /*
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);
+                for (int i = 0; i < 1000000000; i++);*/
+                liveData.setValue(new GetPhotosResponse(photosResponse, null));
             }
 
             @Override

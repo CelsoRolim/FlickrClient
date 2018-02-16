@@ -45,6 +45,10 @@ dependencies {
     // Android Testing Support Library's runner and rules
     androidTestImplementation deps.atsl.runner
 
+    // Glide
+    implementation deps.glide.runtime
+    annotationProcessor deps.glide.compiler
+
     // Espresso UI Testing
     androidTestImplementation deps.espresso.core
 }

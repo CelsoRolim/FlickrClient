@@ -1,7 +1,7 @@
 ext.deps = [:]
 
 def versions = [:]
-versions.support = "26.1.0"
+versions.support = "27.0.2"
 versions.constraint_layout = "1.0.2"
 versions.junit = "4.12"
 versions.atsl_runner = "1.0.1"
@@ -9,6 +9,7 @@ versions.espresso = "3.0.1"
 versions.android_gradle_plugin = "3.0.1"
 versions.lifecycle = "1.1.0"
 versions.retrofit = "2.3.0"
+versions.glide = "4.6.1"
 
 def deps = [:]
 
@@ -37,6 +38,11 @@ lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
 lifecycle.compiler = "android.arch.lifecycle:compiler:$versions.lifecycle"
 deps.lifecycle = lifecycle
 
+def glide = [:]
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
 deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
 deps.junit = "junit:junit:$versions.junit"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
@@ -45,14 +51,15 @@ ext.deps = deps
 
 def build_versions = [:]
 build_versions.min_sdk = 23
-build_versions.target_sdk = 26
-build_versions.build_tools = "26.0.2"
+build_versions.target_sdk = 27
+build_versions.build_tools = "27.0.3"
 
 ext.build_versions = build_versions
 
 def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
+    handler.jcenter { url "http://jcenter.bintray.com/" }
 }
 
 ext.addRepos = this.&addRepos

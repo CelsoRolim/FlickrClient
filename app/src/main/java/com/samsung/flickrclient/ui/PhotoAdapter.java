@@ -4,9 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.samsung.flickrclient.R;
 import com.samsung.flickrclient.databinding.PhotoGalleryItemBinding;
@@ -18,7 +16,7 @@ import java.util.List;
  * Created by sidia on 15/02/18.
  */
 
-public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>{
+public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder> {
 
     private List<PhotoGalleryItem> mItems;
 
@@ -54,11 +52,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
      */
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return (mItems == null ? 0 : mItems.size());
     }
 
     public void setItems(List<PhotoGalleryItem> items) {
         mItems = items;
+        notifyItemRangeInserted(0, items.size());
     }
 
     static class PhotoViewHolder extends RecyclerView.ViewHolder {

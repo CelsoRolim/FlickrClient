@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import com.samsung.flickrclient.R;
 import com.samsung.flickrclient.databinding.FragmentPhotoGalleryBinding;
 import com.samsung.flickrclient.events.http.GetPhotosResponse;
+import com.samsung.flickrclient.model.PhotoGalleryItem;
 import com.samsung.flickrclient.model.Photos;
+import com.samsung.flickrclient.ui.generic.MyPhotoAdapter;
 import com.samsung.flickrclient.viewmodel.PhotoGalleryViewModel;
 
 /**
@@ -27,7 +29,8 @@ public class PhotoGalleryFragment extends Fragment {
 
     private FragmentPhotoGalleryBinding mBinding;
 
-    private PhotoAdapter mPhotoAdapter;
+    //private PhotoAdapter mPhotoAdapter;
+    private MyPhotoAdapter mPhotoAdapter;
 
     public static PhotoGalleryFragment newInstance() {
 
@@ -52,7 +55,8 @@ public class PhotoGalleryFragment extends Fragment {
         mBinding.photoGalleryRecyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity().getApplicationContext(), 3));
 
-        mPhotoAdapter = new PhotoAdapter();
+        mPhotoAdapter = new MyPhotoAdapter<PhotoGalleryItem>();
+        //mPhotoAdapter = new PhotoAdapter();
         mBinding.photoGalleryRecyclerView.setAdapter(mPhotoAdapter);
 
         return mBinding.getRoot();
