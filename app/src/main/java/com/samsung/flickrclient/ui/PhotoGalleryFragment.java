@@ -29,8 +29,8 @@ public class PhotoGalleryFragment extends Fragment {
 
     private FragmentPhotoGalleryBinding mBinding;
 
-    //private PhotoAdapter mPhotoAdapter;
-    private MyPhotoAdapter mPhotoAdapter;
+    private PhotoAdapter mPhotoAdapter;
+    //private MyPhotoAdapter mPhotoAdapter;
 
     public static PhotoGalleryFragment newInstance() {
 
@@ -55,8 +55,8 @@ public class PhotoGalleryFragment extends Fragment {
         mBinding.photoGalleryRecyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity().getApplicationContext(), 3));
 
-        mPhotoAdapter = new MyPhotoAdapter<PhotoGalleryItem>();
-        //mPhotoAdapter = new PhotoAdapter();
+        // mPhotoAdapter = new MyPhotoAdapter<PhotoGalleryItem>();
+        mPhotoAdapter = new PhotoAdapter();
         mBinding.photoGalleryRecyclerView.setAdapter(mPhotoAdapter);
 
         return mBinding.getRoot();

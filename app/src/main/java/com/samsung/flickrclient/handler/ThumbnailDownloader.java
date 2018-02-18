@@ -2,10 +2,14 @@ package com.samsung.flickrclient.handler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.samsung.flickrclient.api.flickr.FlickrFetchr;
 
@@ -29,7 +33,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
 
     private ThumbnailDownloadedListener<T> mDownloadedListener;
 
-    public ThumbnailDownloader(Handler responseHandler ) {
+    public ThumbnailDownloader(Handler responseHandler) {
         super(TAG);
         mResponseHandler = responseHandler;
     }
@@ -55,6 +59,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
         if (url == null) {
             mRequestMap.remove(target);
         } else {
+            mRequestMap.put(target, url);
             mRequestHandler.obtainMessage(MESSAGE_DOWNLOAD, target)
                     .sendToTarget();
         }
@@ -76,7 +81,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mRequestMap.get(target) != url) {
+                    if (mRequestMap.get(target) != url) {
                         return;
                     }
 

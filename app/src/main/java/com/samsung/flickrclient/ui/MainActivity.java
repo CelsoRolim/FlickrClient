@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
         if (null == fragment) {
             fragment = PhotoGalleryFragment.newInstance();
+            //fragment = PhotoHandlerFragment.newInstance();
             fragmentManager.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
